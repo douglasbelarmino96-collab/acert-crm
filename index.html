@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#061a35" />
+    <title>Acert CRM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#dashboard" aria-label="Acert CRM - Início">
+          <span class="brand-mark">A</span>
+          <span><strong>ACERT</strong><small>CRM</small></span>
+        </a>
+        <nav class="nav" aria-label="Navegação principal">
+          <button class="nav-link active" data-view="dashboard"><span>▦</span> Visão geral</button>
+          <button class="nav-link" data-view="clientes"><span>♙</span> Clientes</button>
+          <button class="nav-link" data-view="agenda"><span>◷</span> Agenda</button>
+          <button class="nav-link" data-view="simulador"><span>⌁</span> Simulador</button>
+        </nav>
+        <div class="sidebar-note">
+          <span class="status-dot"></span>
+          Ambiente de teste
+        </div>
+        <div class="sidebar-footer">ACERT na escolha do seu crédito</div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <button class="menu-toggle" aria-label="Abrir menu">☰</button>
+          <div>
+            <p class="eyebrow" id="section-kicker">PAINEL COMERCIAL</p>
+            <h1 id="page-title">Olá, Douglas</h1>
+          </div>
+          <div class="top-actions">
+            <span class="today" id="today"></span>
+            <button class="avatar" title="Perfil">DB</button>
+          </div>
+        </header>
+
+        <section class="view active" id="dashboard">
+          <div class="hero-card">
+            <div>
+              <p class="eyebrow orange">FOCO DO DIA</p>
+              <h2>Organize seus retornos e feche mais contratos.</h2>
+              <p>Clientes que precisam de atenção aparecem primeiro na sua agenda.</p>
+            </div>
+            <button class="button primary" data-go="agenda">Ver agenda <span>→</span></button>
+          </div>
+          <div class="metrics" id="metrics"></div>
+          <div class="grid-2">
+            <article class="panel">
+              <div class="panel-head"><div><p class="eyebrow">PRÓXIMOS RETORNOS</p><h3>Agenda de hoje</h3></div><button class="text-button" data-go="agenda">Ver todos</button></div>
+              <div id="next-returns" class="return-list"></div>
+            </article>
+            <article class="panel quick-actions">
+              <p class="eyebrow">ATALHOS</p>
+              <h3>Começar agora</h3>
+              <button class="quick-button" data-go="clientes"><span>＋</span><div><strong>Novo cliente</strong><small>Cadastre e acompanhe o atendimento</small></div></button>
+              <button class="quick-button" data-go="simulador"><span>⌁</span><div><strong>Nova simulação</strong><small>Portabilidade ou refinanciamento</small></div></button>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="clientes">
+          <div class="page-action"><div><p class="eyebrow">CARTEIRA</p><h2>Clientes</h2></div><button class="button primary" id="open-client-modal">＋ Novo cliente</button></div>
+          <div class="toolbar"><label class="search"><span>⌕</span><input id="client-search" placeholder="Buscar por nome ou telefone" /></label><select id="status-filter"><option value="">Todos os status</option><option>Novo lead</option><option>Em atendimento</option><option>Proposta enviada</option><option>Formalização</option><option>Concluído</option></select></div>
+          <div class="table-wrap"><table><thead><tr><th>Cliente</th><th>Telefone</th><th>Produto</th><th>Status</th><th>Próximo retorno</th><th></th></tr></thead><tbody id="clients-table"></tbody></table></div>
+        </section>
+
+        <section class="view" id="agenda">
+          <div class="page-action"><div><p class="eyebrow">ATENDIMENTOS</p><h2>Agenda</h2></div><button class="button primary" id="open-return-modal">＋ Agendar retorno</button></div>
+          <div class="agenda-tabs" id="agenda-tabs"><button class="tab active" data-filter="all">Todos</button><button class="tab" data-filter="atrasado">Atrasados <span id="late-count"></span></button><button class="tab" data-filter="hoje">Hoje</button><button class="tab" data-filter="futuro">Futuros</button></div>
+          <div id="agenda-list" class="agenda-list"></div>
+        </section>
+
+        <section class="view" id="simulador">
+          <div class="page-action"><div><p class="eyebrow">PORTABILIDADE E REFINANCIAMENTO</p><h2>Simulador</h2></div><span class="safe-label">Cálculo estimado</span></div>
+          <div class="sim-grid">
+            <form id="simulator-form" class="panel simulator-form">
+              <h3>Dados da operação</h3>
+              <div class="form-grid">
+                <label>Nome do cliente<input name="name" placeholder="Ex.: Maria Aparecida" /></label>
+                <label>Produto<select name="product"><option>Portabilidade + refinanciamento</option><option>Refinanciamento</option></select></label>
+                <label>Parcela atual (R$)<input name="installment" type="number" min="0" step="0.01" placeholder="0,00" required /></label>
+                <label>Saldo devedor (R$)<input name="debt" type="number" min="0" step="0.01" placeholder="0,00" required /></label>
+                <label>Coeficiente<select name="coefficient"><option value="0.02150">0,02150 · 1,85%</option><option value="0.02140">0,02140 · 1,70%</option><option value="0.02130">0,02130 · 1,65%</option><option value="0.02190">0,02190 · Facta 1,85%</option></select></label>
+                <label>Margem de segurança (R$)<input name="safety" type="number" min="0" step="1" value="100" /></label>
+              </div>
+              <details class="margin-details"><summary>Conferir margem consignável (opcional)</summary><div class="form-grid margin-grid"><label>Benefício mensal (R$)<input name="income" type="number" min="0" step="0.01" /></label><label>Parcelas de empréstimos (R$)<input name="loans" type="number" min="0" step="0.01" value="0" /></label><label class="switch-line"><input name="rmc" type="checkbox" /> Considerar RMC (5%)</label><label class="switch-line"><input name="rcc" type="checkbox" /> Considerar RCC (5%)</label></div></details>
+              <button class="button primary full" type="submit">Calcular simulação <span>→</span></button>
+            </form>
+            <article class="panel result-card" id="sim-result">
+              <p class="eyebrow">RESULTADO</p><h3>Preencha os dados ao lado</h3><p class="muted">O resultado aparecerá aqui com a estimativa de liberação.</p>
+            </article>
+          </div>
+          <p class="disclaimer">Use somente como estimativa comercial. Confirme saldo, coeficiente, margem e condições no banco antes de apresentar a proposta.</p>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal-backdrop" id="modal-backdrop" hidden>
+      <section class="modal" id="client-modal" hidden><button class="close-modal" data-close>×</button><p class="eyebrow">NOVO CADASTRO</p><h2>Novo cliente</h2><form id="client-form" class="form-grid"><label>Nome completo<input name="name" required placeholder="Nome do cliente" /></label><label>Telefone<input name="phone" required placeholder="(00) 00000-0000" /></label><label>Produto<select name="product"><option>Portabilidade</option><option>Refinanciamento</option><option>Portabilidade + refinanciamento</option><option>FGTS</option><option>Consignado novo</option></select></label><label>Status<select name="status"><option>Novo lead</option><option>Em atendimento</option><option>Proposta enviada</option><option>Formalização</option><option>Concluído</option></select></label><label class="full-row">Observação<textarea name="notes" placeholder="Anotações do atendimento"></textarea></label><button class="button primary full-row" type="submit">Salvar cliente</button></form></section>
+      <section class="modal" id="return-modal" hidden><button class="close-modal" data-close>×</button><p class="eyebrow">AGENDA</p><h2>Agendar retorno</h2><form id="return-form" class="form-grid"><label>Cliente<input name="name" required placeholder="Nome do cliente" /></label><label>Data e hora<input name="datetime" type="datetime-local" required /></label><label class="full-row">Motivo<input name="reason" required placeholder="Ex.: Enviar proposta no WhatsApp" /></label><button class="button primary full-row" type="submit">Salvar retorno</button></form></section>
+    </div>
+    <div class="toast" id="toast"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
