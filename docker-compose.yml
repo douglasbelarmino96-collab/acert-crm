@@ -1,0 +1,7 @@
+services:
+  acert-crm:
+    build: .
+    container_name: acert-crm
+    restart: unless-stopped
+    ports:
+      - "8080:80"
